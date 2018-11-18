@@ -29,4 +29,14 @@ class History:
         return
 
     def recentSample(self, sampleSize): # return most recents from the pool
-        return self.pool[-1*sampleSize:]
+        if self.currentLen< self.maxLen:
+            if self.currentLen < sampleSize:
+                print('History error: not enough samples')
+                return 
+            else:
+                return self.pool[-1*sampleSize:]
+        else:
+            r = []
+            for i in range(self.replacePointer - sampleSize, self.replacePointer):
+                r.append(self.pool[i])
+            return r

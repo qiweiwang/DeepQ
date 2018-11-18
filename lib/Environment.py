@@ -60,8 +60,8 @@ class Environment():
     def get_batch_mostRecent(self,BATCH_SIZE): #get a batch of feature from most recent transtions
         historyBatch = self.history.recentSample(BATCH_SIZE)
         fi = self._historyToFi(historyBatch)
-        assert fi['this'].shape == (2*numberOfQueues+1,BATCH_SIZE)
-        assert fi['next'].shape == (2*numberOfQueues+1,BATCH_SIZE)
+        assert fi['this'].shape == (2*self.numberOfQueues+1,BATCH_SIZE)
+        assert fi['next'].shape == (2*self.numberOfQueues+1,BATCH_SIZE)
         assert fi['a'].shape == (BATCH_SIZE,2)
         assert fi['r'].shape == (1,BATCH_SIZE)
         return fi

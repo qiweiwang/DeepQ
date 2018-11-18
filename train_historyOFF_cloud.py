@@ -6,7 +6,7 @@ from lib.Environment import Environment
 from lib.History import History
 
 #Test Cases
-NUM_EPOCH = 30000
+NUM_EPOCH = 100000
 HORIZON = 1000
 
 USERCASE = 10
@@ -24,11 +24,10 @@ elif USERCASE == 5:
     snrModel = [0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9]
 elif USERCASE == 10:
     horizon = 1000
-    queuesModel = [10,10,10,10,10,10,10,10,10,10]
+    queuesModel = [15,15,15,15,15,15,15,15,15,15]
     loss_thres = [0.02, 0.05, 0.05, 0.02, 0.05, 0.02, 0.05, 0.05, 0.02, 0.05,]
     arriveModel = [0.05, 0.05, 0.05, 0.05, 0.05, 0.35, 0.05, 0.05, 0.05, 0.05]
-    # snrModel = [0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9]
-    snrModel = [1]*USERCASE
+    snrModel = [0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9]
 else:
     raise ValueError('invalid user number case!')
 
@@ -45,7 +44,7 @@ numberOfQueues = USERCASE
 featureSize = 2*numberOfQueues+1
 numberOfNeurons = [featureSize] + HIDDEN_LAYER +[numberOfActions]
 
-suffix = '_32_30k.csv'
+suffix = '_32_100k_fixepsilon.csv'
 lossLogName = 'loss'+suffix
 rewardLogName = 'reward'+suffix
 dropLogName = 'drop'+suffix
@@ -65,8 +64,8 @@ def initialization_parameters(featureSize, numberOfNeurons):
     b1 = tf.get_variable("b1", [numberOfNeurons[1],1], initializer = tf.zeros_initializer())
     W2 = tf.get_variable("W2", [numberOfNeurons[2],numberOfNeurons[1]], initializer = tf.contrib.layers.xavier_initializer())
     b2 = tf.get_variable("b2", [numberOfNeurons[2],1], initializer = tf.zeros_initializer())
-    # W3 = tf.get_variable("W3", [numberOfNeurons[3],numberOfNeurons[2]], initializer = tf.contrib.layers.xavier_initializer())
-    # b3 = tf.get_variable("b3", [numberOfNeurons[3],1], initializer = tf.zeros_initializer())
+    # W3 = tf.get_variable("W3", [numberOfNeurons[2],numberOfNeurons[1]], initializer = tf.contrib.layers.xavier_initializer())
+    # b3 = tf.get_variable("b3", [numberOfNeurons[2],1], initializer = tf.zeros_initializer())
     # W4 = tf.get_variable("W4", [numberOfNeurons[3],numberOfNeurons[2]], initializer = tf.contrib.layers.xavier_initializer())
     # b4 = tf.get_variable("b4", [numberOfNeurons[3],1], initializer = tf.zeros_initializer())
 
@@ -171,7 +170,7 @@ if __name__ == "__main__":
         print('Hidden Layers:')
         for i in HIDDEN_LAYER:
             print(i)
-        input()
+        # input()
 
     ### learning phase
         historyCounter = BATCH_SIZE*2-1
